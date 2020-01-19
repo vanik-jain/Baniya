@@ -16,9 +16,7 @@
 
     </group>
 
-    <group
-        android:checkableBehavior="single"
-        android:title="@string/nav_menu_group_header_my_account">
+    <item android:title="@string/nav_menu_group_header_my_account">
         <menu>
             <item android:id="@+id/nav_my_orders"
                 android:title="@string/nav_menu_my_orders"/>
@@ -26,6 +24,6 @@
                 android:title="@string/nav_menu_login"/>
         </menu>
 
-    </group>
+    </item>
 
 </menu>

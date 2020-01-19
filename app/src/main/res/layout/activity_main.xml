@@ -8,16 +8,14 @@
     tools:context=".MainActivity">
 
 
-
-
         <ImageView
 
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
             android:layout_margin="30dp"
             android:id="@+id/logo"
             android:layout_centerInParent="true"
-            android:src="@mipmap/rb1"
+            android:src="@mipmap/logo"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"

@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".login.LoginActivity">
-
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".login.SignUp"
+    >
 
 
 <LinearLayout
@@ -14,38 +13,36 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:layout_centerInParent="true"
-    >
-<ImageView
-    android:layout_width="150dp"
-    android:layout_height="150dp"
-    android:layout_gravity="center"
-    android:src="@mipmap/logo"
-    />
 
+    >
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_gravity="center"
+        android:src="@mipmap/logo"
+        />
     <TextView
-        android:text="Welcome to Baniya!"
-        android:layout_marginBottom="10dp"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="Let's Get Started!"
+        android:onClick="Login"
+        android:gravity="center_horizontal"
         android:textSize="22.88sp"
         android:textColor="#525050"
-        android:lineSpacingExtra="6.867sp"
-        android:gravity="center_horizontal"
-        android:layout_marginTop="25.117dp"
+        android:layout_marginTop="5.117dp"
         android:layout_marginLeft="22.5dp"
-        android:layout_gravity="center"
         android:fontFamily="@font/averin"
         android:layout_marginRight="22.5dp"
+
+
         />
 
-
     <EditText
-
         android:inputType="textEmailAddress"
-        android:hint="Username"
+        android:hint="Email"
         android:padding="15dp"
         android:layout_margin="10dp"
-        android:id="@+id/username"
+        android:id="@+id/email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="18.311sp"
@@ -57,6 +54,24 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_marginLeft="22.5dp"
 
         />
+    <EditText
+
+        android:hint="Name"
+        android:padding="15dp"
+        android:layout_margin="10dp"
+        android:id="@+id/name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18.311sp"
+        android:textColor="#0d0101"
+        android:lineSpacingExtra="6.867sp"
+        android:layout_marginTop="1.373dp"
+        android:fontFamily="@font/avenirlight"
+        android:layout_marginRight="22.5dp"
+        android:layout_marginLeft="22.5dp"
+
+        />
+
 
     <EditText
         android:inputType="textPassword"
@@ -77,30 +92,31 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
         />
 
 
-    <TextView
-
-        android:text="You haven't an account yet?"
-        android:onClick="SignUp"
-        android:layout_marginBottom="10dp"
-        android:layout_width="wrap_content"
+    <EditText
+        android:inputType="textPassword"
+        android:hint="Confirm Password"
+        android:padding="15dp"
+        android:layout_margin="10dp"
+        android:id="@+id/cpassword"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="18.311sp"
-        android:textColor="#525050"
+        android:textColor="#0d0101"
         android:lineSpacingExtra="6.867sp"
-        android:gravity="center_horizontal"
-        android:layout_marginTop="25.117dp"
-        android:layout_marginLeft="22.5dp"
-        android:fontFamily="@font/averinroman"
-        android:layout_gravity="center"
+        android:layout_marginTop="1.373dp"
+        android:fontFamily="@font/avenirlight"
         android:layout_marginRight="22.5dp"
+        android:layout_marginLeft="22.5dp"
 
         />
 
+
     <TextView
-        android:layout_gravity="center"
-        android:text="Forgot your password?"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Already have an account?"
+        android:onClick="Login"
         android:textSize="15.311sp"
         android:textColor="#525050"
         android:lineSpacingExtra="6.867sp"
@@ -108,26 +124,27 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_marginLeft="22.5dp"
         android:fontFamily="@font/averinroman"
         android:layout_marginRight="22.5dp"
+
+
         />
-<!--        android:onClick="resetPassword"-->
+
+
 
 
 </LinearLayout>
 
 <Button
-    android:onClick="login"
-    android:text="Log In"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/colorPrimary"
-    android:textColor="#ffffff"
+    android:background="#000000"
+    android:textColor="#FFFFFF"
+    android:text="Sign Up"
+    android:onClick="SignUp"
+    android:layout_alignParentBottom="true"
+    android:layout_marginBottom="20dp"
     android:fontFamily="@font/avenirheavy"
     android:textSize="22.8sp"
     android:layout_marginLeft="20dp"
     android:layout_marginRight="20dp"
-    android:layout_marginBottom="20dp"
-    android:layout_alignParentBottom="true"
-
     />
-
 </RelativeLayout>
