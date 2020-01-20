@@ -19,4 +19,9 @@ public interface Api
         @GET("/product/viewProductById/{id}")
         Call<Product>getProduct(@Path("id") String  id);
 
+
+        @GET("/cart/viewProductById/{id}")
+        Call<Product>addToCart(@Path("id")String id);
+
+
 }
