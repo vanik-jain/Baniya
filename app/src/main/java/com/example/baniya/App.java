@@ -1,6 +1,8 @@
-package com.example.baniya.retrofitsetup;
+package com.example.baniya;
 
 import android.app.Application;
+
+import com.example.baniya.Api;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;

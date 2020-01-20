@@ -7,7 +7,7 @@
     android:id="@+id/drawer_layout"
     android:fitsSystemWindows="true"
     android:layout_height="match_parent"
-    tools:context=".landing.LandingActivity"
+    tools:context=".LandingActivity"
     tools:openDrawer="start">
 
     <LinearLayout
@@ -24,12 +24,6 @@
             android:elevation="4dp"/>
 
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="fmcdslmcfsdkfccsdcsd"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="18sp"  />
 
         <FrameLayout
             android:layout_width="match_parent"

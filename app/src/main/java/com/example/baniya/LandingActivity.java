@@ -1,19 +1,22 @@
-package com.example.baniya.landing;
+package com.example.baniya;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.example.baniya.R;
-import com.example.baniya.login.LoginActivity;
 import com.google.android.material.navigation.NavigationView;
 
 public class LandingActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener
@@ -59,20 +62,20 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
         switch (menuItem.getItemId())
         {
             case R.id.nav_mobile:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new LandingFragment("vbdjkvbjvb")).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new LandingFragment("1")).commit();
 
                 break;
             case R.id.nav_tablet:
-
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new LandingFragment("2")).commit();
                 break;
             case R.id.nav_laptop:
-
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new LandingFragment("3")).commit();
                 break;
             case R.id.nav_watch:
-
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new LandingFragment("4")).commit();
                 break;
             case R.id.nav_headphones:
-
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new LandingFragment("5")).commit();
                 break;
             case R.id.nav_my_orders:
 
@@ -83,4 +86,32 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
         }
         return true;
     }
+
+    @Override
+    public boolean onSearchRequested() {
+       // pauseSomeStuff();
+        return super.onSearchRequested();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.options_menu, menu);
+        return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.search_menu_item_id:
+                onSearchRequested();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
 }

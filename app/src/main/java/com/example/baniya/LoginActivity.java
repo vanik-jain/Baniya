@@ -1,12 +1,10 @@
-package com.example.baniya.login;
-
-import androidx.appcompat.app.AppCompatActivity;
+package com.example.baniya;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.example.baniya.R;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class LoginActivity extends AppCompatActivity {
 

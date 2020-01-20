@@ -1,10 +1,10 @@
-package com.example.baniya.login;
+package com.example.baniya;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-import com.example.baniya.R;
+
 
 public class SignUp extends AppCompatActivity {
 

@@ -6,8 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
-import com.example.baniya.landing.LandingActivity;
-
 public class MainActivity extends AppCompatActivity
 {
 
