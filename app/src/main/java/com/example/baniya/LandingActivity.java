@@ -24,7 +24,8 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
     private DrawerLayout drawerLayout;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_landing);
 
@@ -38,19 +39,21 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
 
         NavigationView navigationView = findViewById(R.id.navigation_view);
         navigationView.setNavigationItemSelectedListener(this);
+        navigationView.getMenu().performIdentifierAction(R.id.nav_home, 0);
 
     }
 
 
     @Override
-    public void onBackPressed() {
+    public void onBackPressed()
+    {
         if (drawerLayout.isDrawerOpen(GravityCompat.START))
         {
             drawerLayout.closeDrawer(GravityCompat.START);
         }
 
-        else {
-
+        else
+            {
             super.onBackPressed();
         }
     }
@@ -61,24 +64,31 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
 
         switch (menuItem.getItemId())
         {
+            case R.id.nav_home:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new LandingFragment("landing")).commit();
+                drawerLayout.closeDrawer(GravityCompat.START);
             case R.id.nav_mobile:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new LandingFragment("1")).commit();
-
+                drawerLayout.closeDrawer(GravityCompat.START);
                 break;
             case R.id.nav_tablet:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new LandingFragment("2")).commit();
+                drawerLayout.closeDrawer(GravityCompat.START);
                 break;
             case R.id.nav_laptop:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new LandingFragment("3")).commit();
+                drawerLayout.closeDrawer(GravityCompat.START);
                 break;
             case R.id.nav_watch:
+                drawerLayout.closeDrawer(GravityCompat.START);
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new LandingFragment("4")).commit();
                 break;
             case R.id.nav_headphones:
+                drawerLayout.closeDrawer(GravityCompat.START);
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new LandingFragment("5")).commit();
                 break;
             case R.id.nav_my_orders:
-
+                drawerLayout.closeDrawer(GravityCompat.START);
                 break;
             case R.id.nav_login:
                 startActivity(new Intent(LandingActivity.this, LoginActivity.class));
@@ -103,12 +113,15 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
 
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.search_menu_item_id:
                 onSearchRequested();
                 return true;
+            case R.id.cart_menu_item_id:
+                startActivity(new Intent(LandingActivity.this,CartActivity.class ));
             default:
                 return super.onOptionsItemSelected(item);
         }

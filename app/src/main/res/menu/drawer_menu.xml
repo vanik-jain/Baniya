@@ -2,17 +2,32 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
-    <group android:checkableBehavior="single">
+    <group>
+
+        <item android:id="@+id/nav_home"
+              android:title="@string/nav_menu_home"
+              android:icon="@drawable/ic_nav_home"
+            />
         <item android:id="@+id/nav_mobile"
-            android:title="@string/nav_menu_mobile"/>
+            android:title="@string/nav_menu_mobile"
+            android:icon="@drawable/ic_nav_mobile"
+            />
         <item android:id="@+id/nav_tablet"
-            android:title="@string/nav_menu_tablet"/>
+            android:title="@string/nav_menu_tablet"
+            android:icon="@drawable/ic_nav_tablet"
+            />
         <item android:id="@+id/nav_laptop"
-            android:title="@string/nav_menu_laptop"/>
+            android:title="@string/nav_menu_laptop"
+            android:icon="@drawable/ic_nav_laptop"
+            />
         <item android:id="@+id/nav_watch"
-            android:title="@string/nav_menu_watch"/>
+            android:title="@string/nav_menu_watch"
+            android:icon="@drawable/ic_nav_watch"
+            />
         <item android:id="@+id/nav_headphones"
-            android:title="@string/nav_menu_headphones"/>
+            android:title="@string/nav_menu_headphones"
+            android:icon="@drawable/ic_nav_headphones"
+            />
 
     </group>
 

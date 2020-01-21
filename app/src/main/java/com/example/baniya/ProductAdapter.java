@@ -44,8 +44,17 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewho
     public void onBindViewHolder(@NonNull final MyViewholder holder, int position)
     {
         Product product = productList.get(position);
+        if (product!= null )
+        {
+            String productName = product.getProductName();
+            holder.productDetailsTextView.setText(productName);
+            String price = String.valueOf(product.getPrice());
+            holder.priceTextView.append(price);
+            Glide.with(holder.imageView.getContext())
+                    .applyDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.ic_launcher_foreground))
+                    .load(product.getImageUrl()).into(holder.imageView);
 
-
+        }
         holder.productRow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
@@ -54,16 +63,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewho
                 iProductCommunicator.openProductDetail(productList.get(holder.getAdapterPosition()).getProductId());
             }
         });
-
-        if (product!= null )
-        {
-            String productDetails = product.getProductName();
-            holder.productDetailsTextView.setText(productDetails);
-            Glide.with(holder.imageView.getContext())
-                    .applyDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.ic_launcher_foreground))
-                    .load(product.getImageUrl()).into(holder.imageView);
-
-        }
 
 
     }
@@ -81,14 +80,14 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewho
         TextView productDetailsTextView;
         ImageView imageView;
         LinearLayout productRow;
-
+        TextView priceTextView;
         public MyViewholder(@NonNull View itemView)
         {
             super(itemView);
             productDetailsTextView = itemView.findViewById(R.id.product_details);
             imageView = itemView.findViewById(R.id.image_view);
             productRow= itemView.findViewById(R.id.product_row);
-
+            priceTextView = itemView.findViewById(R.id.price);
 
         }
     }

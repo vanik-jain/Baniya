@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,9 +21,11 @@ public class ProductDescriptionActivity extends AppCompatActivity
 {
     private ImageView productImage;
     private TextView productUsp;
+    private TextView productName;
     private Api api;
     private Call<Product> call;
     private Intent gIntent;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -31,9 +34,10 @@ public class ProductDescriptionActivity extends AppCompatActivity
         setContentView(R.layout.activity_product_description);
         productImage = findViewById(R.id.product_image);
         productUsp = findViewById(R.id.product_usp);
+        productName = findViewById(R.id.product_name_heavy);
         api = App.getRetrofit().create(Api.class);
         gIntent = getIntent();
-        String productId = gIntent.getStringExtra("productID");
+        final String productId = gIntent.getStringExtra("productID");
        // Log.i("VANIK2",gIntent.getStringExtra("productId"));
          call= api.getProduct(productId);
 
@@ -45,6 +49,7 @@ public class ProductDescriptionActivity extends AppCompatActivity
                 Product product = response.body();
                 if (product != null)
                 {
+                    productName.setText(product.getProductName());
                     productUsp.setText(product.getProductDescription());
                     Glide.with(productImage.getContext())
                             .applyDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.ic_launcher_foreground))
@@ -64,5 +69,18 @@ public class ProductDescriptionActivity extends AppCompatActivity
                 Toast.makeText(ProductDescriptionActivity.this,t.getMessage(),Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public void addToCart(View view)
+    {
+//          Intent intent = new Intent();
+//          intent.putExtra("userId");
+//          intent.putExtra("productId");
+//          intent.putExtra("merchantId");
+    }
+
+    public void displayMerchantList(View view)
+    {
+        startActivity(new Intent(ProductDescriptionActivity.this,MerchantsActivity.class));
     }
 }

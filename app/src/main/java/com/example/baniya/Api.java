@@ -15,13 +15,25 @@ public interface Api
         @GET("/product/viewProductsByCategoryId/{id}")
         Call<List<Product>>getProducts(@Path("id") String id);
 
+        @GET("/product/landingPage")
+        Call<List<Product>>getLandingProducts();
+
 
         @GET("/product/viewProductById/{id}")
         Call<Product>getProduct(@Path("id") String  id);
 
 
-        @GET("/cart/viewProductById/{id}")
+        @GET("/merchant/{id}")
+        Call<List<Merchant>>getMerchants(@Path("id")String id);
+
+        @GET("/cart/addToCart{}/{id}")
         Call<Product>addToCart(@Path("id")String id);
+
+        @GET("/cart/viewCart/{userId}")
+        Call<List<Product>>getCartProducts(@Path("id")String id);
+
+
+
 
 
 }

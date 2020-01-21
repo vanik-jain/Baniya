@@ -44,7 +44,13 @@ public class LandingFragment extends Fragment implements IProductCommunicator {
 
         Call<List<Product>> call = null;
 
-        if(categoryId.equals("1"))
+        if(categoryId.equals("landing"))
+
+        {
+            call = api.getLandingProducts();
+        }
+
+        else  if(categoryId.equals("1"))
         {
             call = api.getProducts("1");
         }

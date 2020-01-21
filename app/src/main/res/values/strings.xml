@@ -5,6 +5,7 @@
 
     <string name="nav_menu_group_header_my_account">My Account</string>
 
+    <string name="nav_menu_home">Home</string>
     <string name="nav_menu_mobile">Mobile</string>
     <string name="nav_menu_tablet">Tablet</string>
     <string name="nav_menu_laptop">Laptop</string>
@@ -17,6 +18,7 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="search_hint">Search</string>
+    <string name="cart_hint">cart</string>
 
 
 </resources>
