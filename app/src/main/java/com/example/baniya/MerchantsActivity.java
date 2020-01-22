@@ -36,12 +36,15 @@ public class MerchantsActivity extends AppCompatActivity implements IMerchantCom
             @Override
             public void onResponse(Call<List<Merchant>> call, Response<List<Merchant>> response)
             {
-                merchants = response.body();
-                merchantAdapder = new MerchantAdapder(merchants,MerchantsActivity.this);
-                RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(MerchantsActivity.this);
-                rvMerchants.setLayoutManager(layoutManager);
-                rvMerchants.setItemAnimator(new DefaultItemAnimator());
-                rvMerchants.setAdapter(merchantAdapder);
+                if (response.body() != null)
+                {
+                    merchants = response.body();
+                    merchantAdapder = new MerchantAdapder(merchants, MerchantsActivity.this);
+                    RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(MerchantsActivity.this);
+                    rvMerchants.setLayoutManager(layoutManager);
+                    rvMerchants.setItemAnimator(new DefaultItemAnimator());
+                    rvMerchants.setAdapter(merchantAdapder);
+                }
             }
 
             @Override

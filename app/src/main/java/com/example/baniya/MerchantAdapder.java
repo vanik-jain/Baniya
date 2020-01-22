@@ -37,11 +37,13 @@ public class MerchantAdapder extends RecyclerView.Adapter<MerchantAdapder.Mercha
         Merchant merchant = merchantList.get(position);
         if(merchant != null)
         {
-            if(merchant.getMerchantName() != null)
-            holder.merchantNameTextView.setText(merchant.getMerchantName());
-            holder.merChantRatingTextView.setText(merchant.getRating().toString());
-            holder.merchantPriceTextView.setText(String.valueOf(merchant.getPrice()));
-            holder.merchantStock.setText(String.valueOf(merchant.getStock()));
+
+            String merchantDetails = "Merchant Name: "+merchant.getMerchantName()+"\nMerchant Rating: "+merchant.getRating()+"\u2605"+"\nPrice: "+merchant.getPrice()+"\nStock: "+merchant.getStock();
+
+            holder.merchantDetailsTextView.setText(merchantDetails);
+//            holder.merChantRatingTextView.setText(merchant.getRating().toString());
+//            holder.merchantPriceTextView.setText(String.valueOf(merchant.getPrice()));
+//            holder.merchantStock.setText(String.valueOf(merchant.getStock()));
             holder.addToCartButton.setOnClickListener(new View.OnClickListener()
             {
                 @Override
@@ -65,19 +67,19 @@ public class MerchantAdapder extends RecyclerView.Adapter<MerchantAdapder.Mercha
 
     public class MerchantViewHolder extends  RecyclerView.ViewHolder
     {
-       TextView merchantNameTextView;
-       TextView merChantRatingTextView;
-       TextView merchantPriceTextView;
-       TextView merchantStock;
+       TextView merchantDetailsTextView;
+//       TextView merChantRatingTextView;
+//       TextView merchantPriceTextView;
+//       TextView merchantStock;
        Button addToCartButton;
 
         public MerchantViewHolder(@NonNull View itemView)
         {
             super(itemView);
-            merchantNameTextView = itemView.findViewById(R.id.merchant_name);
-            merChantRatingTextView = itemView.findViewById(R.id.merchant_rating);
-            merchantPriceTextView =itemView.findViewById(R.id.merchant_product_price);
-            merchantStock = itemView.findViewById(R.id.merchant_product_stock);
+            merchantDetailsTextView = itemView.findViewById(R.id.merchant_name);
+//            merChantRatingTextView = itemView.findViewById(R.id.merchant_rating);
+//            merchantPriceTextView =itemView.findViewById(R.id.merchant_product_price);
+//            merchantStock = itemView.findViewById(R.id.merchant_product_stock);
             addToCartButton = itemView.findViewById(R.id.merchant_add_to_cart);
 
 

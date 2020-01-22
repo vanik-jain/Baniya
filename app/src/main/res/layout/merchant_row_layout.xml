@@ -18,49 +18,19 @@
         android:id="@+id/merchant_row"
         android:weightSum="1"
         >
-<LinearLayout
-    android:layout_width="0dp"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:layout_weight="0.7"
-    >
+
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
                 android:padding="10dp"
                 android:paddingLeft="16dp"
                 android:textColor="@color/colorPrimaryDark"
                 android:id="@+id/merchant_name"
+                android:layout_weight="0.7"
                 />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:padding="10dp"
-            android:paddingLeft="16dp"
-            android:textColor="@color/colorPrimaryDark"
-            android:id="@+id/merchant_rating"
-            />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:padding="10dp"
-            android:paddingLeft="16dp"
-            android:textColor="@color/colorPrimaryDark"
-            android:id="@+id/merchant_product_price"
-            />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:padding="10dp"
-            android:paddingLeft="16dp"
-            android:textColor="@color/colorPrimaryDark"
-            android:id="@+id/merchant_product_stock"
-            />
-    </LinearLayout>
+
+
            <Button
                android:layout_width="0dp"
                android:layout_height="wrap_content"

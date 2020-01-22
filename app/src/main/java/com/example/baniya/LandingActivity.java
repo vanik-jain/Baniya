@@ -67,6 +67,7 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
             case R.id.nav_home:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new LandingFragment("landing")).commit();
                 drawerLayout.closeDrawer(GravityCompat.START);
+                break;
             case R.id.nav_mobile:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new LandingFragment("1")).commit();
                 drawerLayout.closeDrawer(GravityCompat.START);
@@ -110,7 +111,6 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
         inflater.inflate(R.menu.options_menu, menu);
         return true;
     }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item)

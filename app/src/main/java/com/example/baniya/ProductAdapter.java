@@ -49,7 +49,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewho
             String productName = product.getProductName();
             holder.productDetailsTextView.setText(productName);
             String price = String.valueOf(product.getPrice());
-            holder.priceTextView.append(price);
+            holder.priceTextView.setText("₹"+price);
             Glide.with(holder.imageView.getContext())
                     .applyDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.ic_launcher_foreground))
                     .load(product.getImageUrl()).into(holder.imageView);
