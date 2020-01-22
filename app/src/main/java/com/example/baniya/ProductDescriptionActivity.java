@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,6 +28,8 @@ public class ProductDescriptionActivity extends AppCompatActivity
     private Call<Product> call;
     private Intent gIntent;
     private Product product;
+    private Button addOneItemToCartButton;
+
 
 
     @Override
@@ -38,9 +41,11 @@ public class ProductDescriptionActivity extends AppCompatActivity
         productUsp = findViewById(R.id.product_usp);
         productName = findViewById(R.id.product_name_heavy);
         productPrice = findViewById(R.id.product_price);
+        addOneItemToCartButton = findViewById(R.id.add_one_item_to_cart_button);
+        addOneItemToCartButton.setText("ADD TO CART");
         api = App.getRetrofit().create(Api.class);
         gIntent = getIntent();
-        final String productId = gIntent.getStringExtra("productID");
+         String productId = gIntent.getStringExtra("productID");
        // Log.i("VANIK2",gIntent.getStringExtra("productId"));
          call= api.getProduct(productId);
 
@@ -80,33 +85,28 @@ public class ProductDescriptionActivity extends AppCompatActivity
     public void addToCart(View view)
     {
             Intent intent = new Intent(ProductDescriptionActivity.this,CartActivity.class);
-            intent.putExtra("userId","mcwdomoe");
-            intent.putExtra("productId",product.getProductId());
-            intent.putExtra("merchantId",product.getMerchantId());
-
-        Api api = App.getRetrofit().create(Api.class);
-        AddCartDTO addCartDTO = new AddCartDTO();
-              addCartDTO.setMerchantId(product.getMerchantId());
-              addCartDTO.setProductId(product.getProductId());
-              addCartDTO.setUserId("2");
-
-              Call<Object> call =api.addToCart(addCartDTO);
-              call.enqueue(new Callback<Object>()
+//            intent.putExtra("userId","mcwdomoe");
+//            intent.putExtra("productId",product.getProductId());
+//            intent.putExtra("merchantId",product.getMerchantId());
+             if (addOneItemToCartButton.getText().toString().equals("VIEW CART"))
+             {
+                 startActivity(intent);
+                 finish();
+             }
+             else
               {
-                  @Override
-                  public void onResponse(Call<Object> call, Response<Object> response)
-                  {
+                  if (product.getStock() >= 1 )
 
+                  {addOneItemToCart();
+                  addOneItemToCartButton.setText("VIEW CART");}
+                  else
+                  {
+                      Toast.makeText(getBaseContext(),"Item out of stock",Toast.LENGTH_SHORT).show();
                   }
 
-                  @Override
-                  public void onFailure(Call<Object> call, Throwable t)
-                  {
-                      Toast.makeText(getBaseContext(),t.getMessage(),Toast.LENGTH_SHORT).show();
 
-                  }
-              });
 
+              }
 
 
     }
@@ -115,4 +115,43 @@ public class ProductDescriptionActivity extends AppCompatActivity
     {
         startActivity(new Intent(ProductDescriptionActivity.this,MerchantsActivity.class));
     }
+
+
+    public void addOneItemToCart()
+    {
+        final String userId = "5" ;
+        Api api = App.getRetrofit().create(Api.class);
+        AddCartDTO addCartDTO = new AddCartDTO();
+        addCartDTO.setMerchantId(product.getMerchantId());
+        addCartDTO.setProductId(product.getProductId());
+        addCartDTO.setUserId(userId);
+
+        Call<String> call =api.addToCart(addCartDTO);
+        call.enqueue(new Callback<String>()
+        {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response)
+            {
+
+                if(response.body() != null && response.body().equals(userId))
+                {
+                    Toast.makeText(getBaseContext(),"Item added to cart",Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    Toast.makeText(getBaseContext(),"Item cannot be added",Toast.LENGTH_SHORT).show();
+                }
+            }
+
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t)
+            {
+                Toast.makeText(getBaseContext(),t.getMessage(),Toast.LENGTH_SHORT).show();
+
+            }
+        });
+    }
+
+
 }

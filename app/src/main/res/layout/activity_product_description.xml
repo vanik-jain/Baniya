@@ -90,6 +90,7 @@
         android:backgroundTint="@color/colorPrimary"
         android:textColor="#ffffff"
         android:fontFamily="@font/avenirheavy"
+        android:id="@+id/add_one_item_to_cart_button"
         android:layout_gravity="center"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"

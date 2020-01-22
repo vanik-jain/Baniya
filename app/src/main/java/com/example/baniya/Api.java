@@ -27,7 +27,7 @@ public interface Api
         Call<List<Merchant>>getMerchants(@Path("id")String id);
 
         @POST("/cart/addToCart")
-        Call<Object> addToCart(@Body AddCartDTO addCartDTO);
+        Call<String> addToCart(@Body AddCartDTO addCartDTO);
 
         @GET("/cart/viewCart/{userId}")
         Call<List<ViewCartDTO>>viewCart(@Path("userId")String id);
