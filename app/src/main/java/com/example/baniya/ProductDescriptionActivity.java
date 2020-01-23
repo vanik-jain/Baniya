@@ -3,6 +3,7 @@ package com.example.baniya;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -29,6 +30,8 @@ public class ProductDescriptionActivity extends AppCompatActivity
     private Intent gIntent;
     private Product product;
     private Button addOneItemToCartButton;
+    private TextView productRatingTextView;
+    private SharedPreferences sharedPreferences;
 
 
 
@@ -41,6 +44,7 @@ public class ProductDescriptionActivity extends AppCompatActivity
         productUsp = findViewById(R.id.product_usp);
         productName = findViewById(R.id.product_name_heavy);
         productPrice = findViewById(R.id.product_price);
+        productRatingTextView = findViewById(R.id.product_rating);
         addOneItemToCartButton = findViewById(R.id.add_one_item_to_cart_button);
         addOneItemToCartButton.setText("ADD TO CART");
         api = App.getRetrofit().create(Api.class);
@@ -62,6 +66,7 @@ public class ProductDescriptionActivity extends AppCompatActivity
                     productName.setText(product.getProductName());
                     productUsp.setText(product.getProductDescription());
                     productPrice.setText("₹"+String.valueOf((product.getPrice())));
+                    productRatingTextView.setText(product.getProductRating()+"\u2605");
                     Glide.with(productImage.getContext())
                             .applyDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.ic_launcher_foreground))
                             .load(product.getImageUrl()).into(productImage);
@@ -124,16 +129,17 @@ public class ProductDescriptionActivity extends AppCompatActivity
         AddCartDTO addCartDTO = new AddCartDTO();
         addCartDTO.setMerchantId(product.getMerchantId());
         addCartDTO.setProductId(product.getProductId());
-        addCartDTO.setUserId(userId);
-
-        Call<String> call =api.addToCart(addCartDTO);
+      //  addCartDTO.setUserId(userId);
+        sharedPreferences = getSharedPreferences("user_details",MODE_PRIVATE);
+        String authToken = sharedPreferences.getString("auth_token",null);
+        Call<String> call =api.addToCart(addCartDTO,authToken);
         call.enqueue(new Callback<String>()
         {
             @Override
             public void onResponse(Call<String> call, Response<String> response)
             {
 
-                if(response.body() != null && response.body().equals(userId))
+                if(response.body() != null)
                 {
                     Toast.makeText(getBaseContext(),"Item added to cart",Toast.LENGTH_SHORT).show();
                 }

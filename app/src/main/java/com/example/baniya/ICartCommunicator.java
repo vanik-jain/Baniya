@@ -2,5 +2,5 @@ package com.example.baniya;
 
 public interface ICartCommunicator
 {
-    void  updateCart();
+    void  updateCartOnClick(String productId,String merchantId,int counter);
 }

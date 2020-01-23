@@ -19,6 +19,7 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="search_hint">Search</string>
     <string name="cart_hint">cart</string>
+    <string name="server_client_id">127987743427-l83aqqktu6nmviel14hiodoamh0c3utv.apps.googleusercontent.com</string>
 
 
 </resources>

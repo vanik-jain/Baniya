@@ -36,21 +36,23 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CartViewHolder holder, int position)
+    public void onBindViewHolder(@NonNull final CartViewHolder holder, int position)
     {
-        ViewCartDTO viewCartDTO = cartProducts.get(position);
+        final ViewCartDTO viewCartDTO = cartProducts.get(position);
         if (viewCartDTO != null)
         {
             holder.cartProductDetailsTextView.setText(viewCartDTO.toString());
             Glide.with(holder.cartProductImageView.getContext())
                     .applyDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.ic_launcher_foreground))
                     .load(viewCartDTO.getImageUrl()).into(holder.cartProductImageView);
+            holder.elegantNumberButton.setNumber(String.valueOf(viewCartDTO.getCounter()));
             holder.elegantNumberButton.setOnValueChangeListener(new ElegantNumberButton.OnValueChangeListener()
             {
                 @Override
                 public void onValueChange(ElegantNumberButton view, int oldValue, int newValue)
                 {
-                  // iCartCommunicator.
+                    ViewCartDTO viewCartDTO1 = cartProducts.get(holder.getAdapterPosition());
+                    iCartCommunicator.updateCartOnClick(viewCartDTO1.getProductId(),viewCartDTO1.getMerchantId(),newValue);
                 }
             });
 

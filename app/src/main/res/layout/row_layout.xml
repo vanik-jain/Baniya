@@ -1,66 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:elevation="5dp"
-    android:padding="10dp"
-    app:cardCornerRadius="5dp"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="10dp"
     android:layout_marginBottom="10dp"
-
-    >
+    android:elevation="5dp"
+    android:padding="10dp"
+    app:cardCornerRadius="5dp">
 
     <LinearLayout
-        android:orientation="horizontal"
+        android:id="@+id/product_row"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/product_row"
-        >
+        android:orientation="horizontal">
 
-    <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:id="@+id/image_view"
-        android:padding="5dp"
-        android:layout_gravity="center"
-        android:background="@drawable/image_background"
-        />
+        <ImageView
+            android:id="@+id/image_view"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:background="@drawable/image_background"
+            android:padding="5dp" />
 
-<LinearLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    >
-
-    <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:padding="10dp"
-            android:paddingLeft="16dp"
-            android:textColor="@color/colorPrimaryDark"
-            android:id="@+id/product_details"
-            />
+            android:orientation="vertical">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:padding="10dp"
-        android:paddingLeft="16dp"
-        android:textColor="@color/colorPrimaryDark"
-        android:id="@+id/price"
-        android:fontFamily="@font/avenirheavy"
-        />
+            <TextView
+                android:id="@+id/product_details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:paddingLeft="16dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:textSize="18sp" />
 
-</LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="10dp"
+                android:paddingLeft="16dp"
+                android:weightSum="1">
+
+                <TextView
+                    android:id="@+id/price"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="0.5"
+                    android:fontFamily="@font/avenirheavy"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="18sp"
+                    />
+
+                <TextView
+                    android:id="@+id/product_rating_rv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:fontFamily="@font/avenirheavy"
+                    android:gravity="end"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="18sp"
+                    />
+
+            </LinearLayout>
+
+        </LinearLayout>
 
 
     </LinearLayout>
-
-
 
 
 </androidx.cardview.widget.CardView>

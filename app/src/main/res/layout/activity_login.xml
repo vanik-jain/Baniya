@@ -16,8 +16,8 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_height="wrap_content"
         android:visibility="gone"
         android:id="@+id/progressbar_layout"
-
-        android:elevation="5dp">
+        android:elevation="5dp"
+        >
 
         <ProgressBar
             android:id="@+id/loader"
@@ -114,47 +114,86 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
         android:textSize="18.311sp"
         android:textColor="#525050"
         android:lineSpacingExtra="6.867sp"
-        android:gravity="center_horizontal"
+        android:gravity="center"
         android:layout_marginTop="25.117dp"
-        android:layout_marginLeft="22.5dp"
         android:fontFamily="@font/averinroman"
         android:layout_gravity="center"
-        android:layout_marginRight="22.5dp"
+
 
         />
 
-    <TextView
-        android:layout_gravity="center"
-        android:text="Forgot your password?"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="15.311sp"
-        android:textColor="#525050"
-        android:lineSpacingExtra="6.867sp"
-        android:layout_marginTop="5.117dp"
-        android:layout_marginLeft="22.5dp"
-        android:fontFamily="@font/averinroman"
-        android:layout_marginRight="22.5dp"
-        />
+<!--    <TextView-->
+<!--        android:layout_gravity="center"-->
+<!--        android:text="Forgot your password?"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:textSize="15.311sp"-->
+<!--        android:textColor="#525050"-->
+<!--        android:lineSpacingExtra="6.867sp"-->
+<!--        android:layout_marginTop="5.117dp"-->
+<!--        android:layout_marginLeft="22.5dp"-->
+<!--        android:fontFamily="@font/averinroman"-->
+<!--        android:layout_marginRight="22.5dp"-->
+<!--        />-->
 <!--        android:onClick="resetPassword"-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="1"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:orientation="horizontal"
+
+        >
+        <Button
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:drawableTop="@drawable/ic_icons8_google"
+            android:onClick="googleSignIn"
+            />
+        <Button
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:gravity="end"
+            android:drawableTop="@drawable/ic_icons8_facebook" />
+    </LinearLayout>
+
 
 
 </LinearLayout>
 
-<Button
+
+
+
+
+
+
+
+
+    <Button
     android:onClick="login"
     android:text="Log In"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/colorPrimary"
+    android:background="@drawable/image_background"
+    android:backgroundTint="@color/colorPrimary"
     android:textColor="#ffffff"
     android:fontFamily="@font/avenirheavy"
-    android:textSize="22.8sp"
+    android:textSize="18sp"
     android:layout_marginLeft="20dp"
     android:layout_marginRight="20dp"
     android:layout_marginBottom="20dp"
     android:layout_alignParentBottom="true"
 
     />
+
+
+
+
 
 </RelativeLayout>

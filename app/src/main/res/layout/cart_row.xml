@@ -52,6 +52,7 @@
             android:background="@color/colorPrimary"
             android:layout_gravity="center"
             android:id="@+id/elegant_button"
+            app:initialNumber="1"
             />
         </LinearLayout>
 
