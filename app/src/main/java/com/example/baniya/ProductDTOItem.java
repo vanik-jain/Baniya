@@ -1,18 +1,30 @@
 package com.example.baniya;
 
+
 import com.google.gson.annotations.SerializedName;
 
-import java.io.Serializable;
 
-public class ProductDTOItem implements Serializable
-{
+public class ProductDTOItem{
+
 	@SerializedName("productId")
 	private String productId;
+
+	@SerializedName("merchantId")
 	private String merchantId;
-	private double price;
+
+	@SerializedName("price")
+	private int price;
+
+	@SerializedName("imageUrl")
 	private String imageUrl;
+
+	@SerializedName("counter")
 	private int counter;
+
+	@SerializedName("stock")
 	private int stock;
+
+	@SerializedName("productName")
 	private String productName;
 
 	public void setProductId(String productId){
@@ -31,11 +43,11 @@ public class ProductDTOItem implements Serializable
 		return merchantId;
 	}
 
-	public void setPrice(double price){
+	public void setPrice(int price){
 		this.price = price;
 	}
 
-	public double getPrice(){
+	public int getPrice(){
 		return price;
 	}
 

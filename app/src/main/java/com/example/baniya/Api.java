@@ -2,6 +2,8 @@ package com.example.baniya;
 
 import androidx.annotation.Nullable;
 
+import com.example.baniya.model.OrderHistoryResponse;
+
 import java.util.List;
 
 import retrofit2.Call;
@@ -48,6 +50,9 @@ public interface Api
 
     @GET("/authenticate/user/me")
     Call<UserDetailsDTO>getUserDetails(@Header("Auth") String authToken);
+
+    @GET("/order/orderHistory")
+    Call<List<OrderHistoryResponse>>getOrderHistory(@Header("Auth") String authToken);
 
 
 }

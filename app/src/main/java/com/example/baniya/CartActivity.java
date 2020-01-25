@@ -129,7 +129,10 @@ import retrofit2.Response;
                 {
                     CartResponseDTO cartResponseDTO = response.body();
                     if (cartResponseDTO.getSuccess())
-                    Toast.makeText(CartActivity.this, "Cart Updated", Toast.LENGTH_SHORT).show();
+                    {
+                        Toast.makeText(CartActivity.this, "Cart Updated", Toast.LENGTH_SHORT).show();
+                        totalTextView.setText("Total: ₹"+cartResponseDTO.getTotal());
+                    }
                 }
             }
 
@@ -153,7 +156,8 @@ import retrofit2.Response;
            public void onResponse(Call<CartResponseDTO> call, Response<CartResponseDTO> response)
            {
 
-               if (response.body() != null) {
+               if (response.body() != null)
+               {
                    CartResponseDTO cartResponseDTO = response.body();
                    if (cartResponseDTO.getSuccess())
                    {

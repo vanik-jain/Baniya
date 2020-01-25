@@ -20,10 +20,8 @@ public class MainActivity extends AppCompatActivity
 //        if (actionBar != null)
 //        actionBar.hide();
 
-        sharedPreferences = getSharedPreferences("user_details",MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.clear();
-        editor.apply();
+
+
 
 
         new Handler().postDelayed

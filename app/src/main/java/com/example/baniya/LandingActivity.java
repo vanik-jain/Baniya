@@ -41,6 +41,7 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
    private ImageView imageViewDp;
    private TextView textViewUsername;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -57,9 +58,19 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
 
         final NavigationView navigationView = findViewById(R.id.navigation_view);
         navigationView.setNavigationItemSelectedListener(this);
-        navigationView.getMenu().performIdentifierAction(R.id.nav_home, 0);
+        Menu menu = navigationView.getMenu();
+        menu.performIdentifierAction(R.id.nav_home, 0);
         sharedPreferences = getSharedPreferences("user_details",MODE_PRIVATE);
         authToken = sharedPreferences.getString("auth_token",null);
+
+        MenuItem nav_login = menu.findItem(R.id.nav_login);
+            if (authToken != null)
+            {
+                nav_login.setTitle("Logout");
+            }
+
+
+
         Api api = App.getRetrofit().create(Api.class);
         Call<UserDetailsDTO> call = api.getUserDetails(authToken);
         call.enqueue(new Callback<UserDetailsDTO>() {
@@ -86,8 +97,6 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
             {
                 Toast.makeText(LandingActivity.this,t.getMessage(),Toast.LENGTH_SHORT).show();
                 Log.i("VANIK4",t.getMessage());
-
-
 
                 //textViewUsername = headerView.findViewById(R.id.textViewUsername);
 
@@ -146,11 +155,28 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new LandingFragment("5")).commit();
                 break;
             case R.id.nav_my_orders:
+                startActivity(new Intent(LandingActivity.this,OrderHistoryActivity.class));
                 drawerLayout.closeDrawer(GravityCompat.START);
                 break;
+
+
             case R.id.nav_login:
-                startActivity(new Intent(LandingActivity.this, LoginActivity.class));
-                break;
+                if (menuItem.getTitle().equals(getString(R.string.nav_menu_logout)))
+                {
+                    menuItem.setTitle(getString(R.string.nav_menu_login));
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.clear();
+                    editor.apply();
+                    break;
+
+                } else
+                    {
+
+                        startActivity(new Intent(LandingActivity.this, LoginActivity.class));
+                        break;
+                }
+
+
         }
         return true;
     }

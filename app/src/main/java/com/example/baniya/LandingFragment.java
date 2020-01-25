@@ -29,7 +29,7 @@ public class LandingFragment extends Fragment implements IProductCommunicator {
     private  ProductAdapter productAdapter;
     private  List<Product> productList;
     private String categoryId;
-    private LinearLayout progressBarLinearLayout;
+ //   private LinearLayout progressBarLinearLayout;
 
     public LandingFragment(String categoryId)
     {
@@ -43,7 +43,7 @@ public class LandingFragment extends Fragment implements IProductCommunicator {
     {
         final View view = inflater.inflate(R.layout.fragment_land_page,container,false);
         rvProducts = view.findViewById(R.id.recycler_view);
-        progressBarLinearLayout = view.findViewById(R.id.progressbar_layout);
+      //  progressBarLinearLayout = view.findViewById(R.id.progressbar_layout);
         Api api = App.getRetrofit().create(Api.class);
 
         Call<List<Product>> call = null;
@@ -87,7 +87,7 @@ public class LandingFragment extends Fragment implements IProductCommunicator {
             {
                 if(response.body() != null)
                 {
-                    progressBarLinearLayout.setVisibility(View.GONE);
+                   // progressBarLinearLayout.setVisibility(View.GONE);
                     productList = response.body();
                     productAdapter = new ProductAdapter(productList, LandingFragment.this);
                     RecyclerView.LayoutManager layoutManager =new LinearLayoutManager(view.getContext());
@@ -101,7 +101,7 @@ public class LandingFragment extends Fragment implements IProductCommunicator {
             @Override
             public void onFailure(Call<List<Product>> call, Throwable t)
             {
-                progressBarLinearLayout.setVisibility(View.GONE);
+//                progressBarLinearLayout.setVisibility(View.GONE);
                 Toast.makeText(getContext(),t.getMessage(),Toast.LENGTH_SHORT).show();
             }
             });

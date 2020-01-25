@@ -10,6 +10,16 @@ public class CartResponseDTO implements Serializable
     private String  cartId;
     private Boolean isSuccess;
     private String  errorMessage;
+    private Double total;
+
+    public Double getTotal()
+     {
+        return total;
+    }
+
+    public void setTotal(Double total) {
+        this.total = total;
+    }
 
     public String getCartId()
     {
