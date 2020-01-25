@@ -29,22 +29,25 @@ public interface Api
     Call<List<Merchant>>getMerchants(@Path("id")String id);
 
     @POST("/cart/addToCart")
-    Call<String> addToCart(@Body AddCartDTO addCartDTO, @Header("Auth") String authToken);
+    Call<CartResponseDTO> addToCart(@Body AddCartDTO addCartDTO, @Header("Auth") String authToken);
 
     @GET("/cart/viewCart/")
-    Call<List<ViewCartDTO>>viewCart(@Header("Auth")String authToken);
+    Call<ViewCartDTO>viewCart(@Header("Auth")String authToken);
 
     @POST("/auth/signup")
     Call<SignUpResponseDTO>sendSignupCredentials(@Body SignUpRequestDTO signUpRequestDTO);
 
     @POST("/auth/login")
-    Call<LoginResponseDTO>sendLoginCredentials(@Body LoginRequestDTO loginRequestDTO);
+    Call<LoginResponseDTO>sendLoginCredentials(@Body LoginRequestDTO loginRequestDTO,@Nullable @Header("token") String token,@Header("provider")String provider,@Header("web")String web);
 
     @POST("/cart/updateCart")
-    Call<String>updateCart(@Body UpdateCartDTO updateCartDTO,@Header("Auth") String authToken);
+    Call<CartResponseDTO>updateCart(@Body UpdateCartDTO updateCartDTO, @Header("Auth") String authToken);
 
     @GET("/order/checkout")
-    Call<Object>checkout(@Header("Auth") String authToken);
+    Call<CartResponseDTO>checkout(@Header("Auth") String authToken);
+
+    @GET("/authenticate/user/me")
+    Call<UserDetailsDTO>getUserDetails(@Header("Auth") String authToken);
 
 
 }

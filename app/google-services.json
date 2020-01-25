@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "127987743427",
+    "firebase_url": "https://baniya-5725f.firebaseio.com",
+    "project_id": "baniya-5725f",
+    "storage_bucket": "baniya-5725f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:127987743427:android:8a5ea1f8423858b8ba0076",
+        "android_client_info": {
+          "package_name": "com.example.baniya"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "127987743427-2nrpf2ojhq08mt6bmcvmac6sgmf06kme.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.baniya",
+            "certificate_hash": "edbcedd1872c817143a173c4a7307b409c018baf"
+          }
+        },
+        {
+          "client_id": "127987743427-l83aqqktu6nmviel14hiodoamh0c3utv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC62qgL7h4gT6bVZFeFTjrHFrTW7yr_y8U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "127987743427-l83aqqktu6nmviel14hiodoamh0c3utv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

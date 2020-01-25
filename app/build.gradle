@@ -46,6 +46,8 @@ dependencies {
     //elegentnumberbutton
     implementation 'com.cepheuen.elegant-number-button:lib:1.0.2'
     implementation 'com.google.android.gms:play-services-auth:17.0.0'
+    //fb login
+    implementation 'com.facebook.android:facebook-android-sdk:[5,6)'
 
 
 }

@@ -25,7 +25,8 @@ public class UpdateCartDTO implements Serializable
         return merchantId;
     }
 
-    public void setMerchantId(String merchantId) {
+    public void setMerchantId(String merchantId)
+    {
         this.merchantId = merchantId;
     }
 
@@ -33,10 +34,10 @@ public class UpdateCartDTO implements Serializable
         return counter;
     }
 
-    public void setCounter(int counter) {
+    public void setCounter(int counter)
+    {
         this.counter = counter;
     }
-
 
 
 }

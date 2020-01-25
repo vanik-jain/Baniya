@@ -24,6 +24,8 @@
             android:layout_height="100dp"
             android:layout_weight="0.3"
             android:id="@+id/cart_product_image"
+            android:background="@drawable/image_background"
+            android:padding="5dp"
 
 />
 
@@ -42,17 +44,35 @@
             android:padding="10dp"
             android:paddingLeft="16dp"
             android:textColor="@color/colorPrimaryDark"
+            android:maxLines="2"
+            android:ellipsize="end"
             android:id="@+id/cart_product_name"
 
             />
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:padding="10dp"
+                android:paddingLeft="16dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:fontFamily="@font/avenirheavy"
+                android:id="@+id/cart_product_price"
+
+                />
+
         <com.cepheuen.elegantnumberbutton.view.ElegantNumberButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
-            android:layout_gravity="center"
+            android:background="@drawable/image_background"
+            android:layout_gravity="end"
             android:id="@+id/elegant_button"
+            android:backgroundTint="@color/colorPrimary"
             app:initialNumber="1"
+            android:layout_marginBottom="4dp"
             />
         </LinearLayout>
 

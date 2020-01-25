@@ -50,7 +50,7 @@ public class MerchantAdapder extends RecyclerView.Adapter<MerchantAdapder.Mercha
                 public void onClick(View v)
                 {
                   Merchant merchant1 = merchantList.get(holder.getAdapterPosition());
-                     iMerchantCommunicator.addMerchantProductToCart("5",merchant1.getProductId(),merchant1.getMerchantId());
+                     iMerchantCommunicator.addMerchantProductToCart(merchant1.getProductId(),merchant1.getMerchantId());
                 }
             });
 

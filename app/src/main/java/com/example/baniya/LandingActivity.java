@@ -7,21 +7,39 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.navigation.NavigationView;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class LandingActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener
 {
     private DrawerLayout drawerLayout;
+    private SharedPreferences sharedPreferences;
+    private String authToken;
+    private UserDetailsDTO userDetailsDTO;
+
+   private ImageView imageViewDp;
+   private TextView textViewUsername;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -37,9 +55,48 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
 
-        NavigationView navigationView = findViewById(R.id.navigation_view);
+        final NavigationView navigationView = findViewById(R.id.navigation_view);
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.getMenu().performIdentifierAction(R.id.nav_home, 0);
+        sharedPreferences = getSharedPreferences("user_details",MODE_PRIVATE);
+        authToken = sharedPreferences.getString("auth_token",null);
+        Api api = App.getRetrofit().create(Api.class);
+        Call<UserDetailsDTO> call = api.getUserDetails(authToken);
+        call.enqueue(new Callback<UserDetailsDTO>() {
+            @Override
+            public void onResponse(Call<UserDetailsDTO> call, Response<UserDetailsDTO> response)
+            {
+
+                if (response.body() != null)
+                {
+                    userDetailsDTO = response.body();
+                    View headerView = navigationView.getHeaderView(0);
+                    textViewUsername = headerView.findViewById(R.id.nav_header_name);
+                    imageViewDp = headerView.findViewById(R.id.nav_header_image);
+                    textViewUsername.setText(userDetailsDTO.getName());
+                    Glide.with(imageViewDp.getContext())
+                            .applyDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.ic_launcher_foreground))
+                            .load(userDetailsDTO.getImageUrl()).into(imageViewDp);
+                    Log.i("VANIK4",userDetailsDTO.toString());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UserDetailsDTO> call, Throwable t)
+            {
+                Toast.makeText(LandingActivity.this,t.getMessage(),Toast.LENGTH_SHORT).show();
+                Log.i("VANIK4",t.getMessage());
+
+
+
+                //textViewUsername = headerView.findViewById(R.id.textViewUsername);
+
+
+
+            }
+        });
+
+
 
     }
 

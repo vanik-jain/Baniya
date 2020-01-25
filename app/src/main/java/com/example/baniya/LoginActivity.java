@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -30,23 +31,27 @@ public class LoginActivity extends AppCompatActivity {
     private EditText mUserPassword;
     private SharedPreferences sharedPreferences;
     private GoogleSignInClient googleSignInClient;
+    private LinearLayout progressBarLinearLayout;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
         mUserEmail = findViewById(R.id.username);
         mUserPassword = findViewById(R.id.password);
+        progressBarLinearLayout = findViewById(R.id.progressbar_layout);
 
         sharedPreferences = getSharedPreferences("user_details",MODE_PRIVATE);
-
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.server_client_id))
                 .requestEmail()
                 .build();
 
         googleSignInClient = GoogleSignIn.getClient(this, gso);
+
+
 
     }
 
@@ -60,20 +65,21 @@ public class LoginActivity extends AppCompatActivity {
 
         if (!(mUserEmail.getText().toString().equals("") || mUserPassword.getText().toString().equals("")))
         {
-            Api api = App.getRetrofit().create(Api.class);
-
+            progressBarLinearLayout.setVisibility(View.VISIBLE);
+            Api api = App.getRetrofit() .create(Api.class);
             final LoginRequestDTO loginRequestDTO = new LoginRequestDTO();
             loginRequestDTO.setEmail(mUserEmail.getText().toString());
             loginRequestDTO.setPassword(mUserPassword.getText().toString());
 
-            Call<LoginResponseDTO> call = api.sendLoginCredentials(loginRequestDTO);
-
-            call.enqueue(new Callback<LoginResponseDTO>() {
+            Call<LoginResponseDTO> call = api.sendLoginCredentials(loginRequestDTO,null,"local","false");
+            call.enqueue(new Callback<LoginResponseDTO>()
+            {
                 @Override
                 public void onResponse(Call<LoginResponseDTO> call, Response<LoginResponseDTO> response)
                 {
                     if (response.body() != null)
                     {
+                        progressBarLinearLayout.setVisibility(View.GONE);
                         LoginResponseDTO loginResponseDTO = response.body();
                         String auth_token =loginResponseDTO.getTokenType()+" "+loginResponseDTO.getAccessToken();
                         if (!auth_token.equals(""))
@@ -83,6 +89,7 @@ public class LoginActivity extends AppCompatActivity {
                             editor.apply();
                             Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(LoginActivity.this,LandingActivity.class));
+                            finish();
                         }
                     }
                 }
@@ -90,6 +97,7 @@ public class LoginActivity extends AppCompatActivity {
                 @Override
                 public void onFailure(Call<LoginResponseDTO> call, Throwable t)
                 {
+                    progressBarLinearLayout.setVisibility(View.GONE);
                     Toast.makeText(LoginActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
@@ -99,13 +107,12 @@ public class LoginActivity extends AppCompatActivity {
             {
 
             Toast.makeText(LoginActivity.this, "Login or Password can't be blank!", Toast.LENGTH_SHORT).show();
-        }
+             }
     }
 
     public void googleSignIn(View view)
     {
-
-
+        progressBarLinearLayout.setVisibility(View.VISIBLE);
         Intent signInIntent = googleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
 
@@ -129,8 +136,42 @@ public class LoginActivity extends AppCompatActivity {
         if (result.isSuccess())
         {
             GoogleSignInAccount googleSignInAccount = result.getSignInAccount();
-            String authToken = googleSignInAccount.getIdToken();
-            Log.i("VANIK",authToken);
+            String idToken = googleSignInAccount.getIdToken();
+            Api api = App.getRetrofit().create(Api.class);
+            LoginRequestDTO loginRequestDTO = new LoginRequestDTO();
+            Call<LoginResponseDTO> call = api.sendLoginCredentials(loginRequestDTO,idToken,"google","false");
+            call.enqueue(new Callback<LoginResponseDTO>() {
+                @Override
+                public void onResponse(Call<LoginResponseDTO> call, Response<LoginResponseDTO> response)
+                {
+                    if (response.body() != null)
+                    {
+                        progressBarLinearLayout.setVisibility(View.GONE);
+                        LoginResponseDTO loginResponseDTO = response.body();
+                        String auth_token =loginResponseDTO.getTokenType()+" "+loginResponseDTO.getAccessToken();
+                        if (!auth_token.equals(""))
+                        {
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putString("auth_token", auth_token);
+                            editor.apply();
+                            Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(LoginActivity.this,LandingActivity.class));
+                            finish();
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<LoginResponseDTO> call, Throwable t)
+                {
+                    progressBarLinearLayout.setVisibility(View.GONE);
+                   Toast.makeText(LoginActivity.this,t.getMessage(),Toast.LENGTH_SHORT).show();
+                }
+            });
+
+
+
+//            Log.i("VANIK",idToken);
         }
     }
 }

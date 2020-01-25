@@ -17,10 +17,10 @@ import java.util.List;
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder>
 {
-    private List<ViewCartDTO> cartProducts;
+    private List<ProductDTOItem> cartProducts;
     private ICartCommunicator iCartCommunicator;
 
-    public CartAdapter(List<ViewCartDTO> cartProducts, ICartCommunicator iCartCommunicator)
+    public CartAdapter(List<ProductDTOItem> cartProducts, ICartCommunicator iCartCommunicator)
     {
         this.cartProducts = cartProducts;
         this.iCartCommunicator = iCartCommunicator;
@@ -38,21 +38,22 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     @Override
     public void onBindViewHolder(@NonNull final CartViewHolder holder, int position)
     {
-        final ViewCartDTO viewCartDTO = cartProducts.get(position);
-        if (viewCartDTO != null)
+        final ProductDTOItem productDTOItem = cartProducts.get(position);
+        if (productDTOItem != null)
         {
-            holder.cartProductDetailsTextView.setText(viewCartDTO.toString());
+            holder.cartProductNameTextView.setText(productDTOItem.getProductName());
+            holder.cartProductPriceTextview.setText("₹"+productDTOItem.getPrice());
             Glide.with(holder.cartProductImageView.getContext())
                     .applyDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.ic_launcher_foreground))
-                    .load(viewCartDTO.getImageUrl()).into(holder.cartProductImageView);
-            holder.elegantNumberButton.setNumber(String.valueOf(viewCartDTO.getCounter()));
+                    .load(productDTOItem.getImageUrl()).into(holder.cartProductImageView);
+            holder.elegantNumberButton.setNumber(String.valueOf(productDTOItem.getCounter()));
             holder.elegantNumberButton.setOnValueChangeListener(new ElegantNumberButton.OnValueChangeListener()
             {
                 @Override
                 public void onValueChange(ElegantNumberButton view, int oldValue, int newValue)
                 {
-                    ViewCartDTO viewCartDTO1 = cartProducts.get(holder.getAdapterPosition());
-                    iCartCommunicator.updateCartOnClick(viewCartDTO1.getProductId(),viewCartDTO1.getMerchantId(),newValue);
+                    ProductDTOItem productDTOItem1 = cartProducts.get(holder.getAdapterPosition());
+                    iCartCommunicator.updateCartOnClick(productDTOItem1.getProductId(),productDTOItem1.getMerchantId(),newValue);
                 }
             });
 
@@ -67,15 +68,18 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
     public  class CartViewHolder extends RecyclerView.ViewHolder
     {
-      TextView cartProductDetailsTextView ;
+      TextView cartProductNameTextView;
       ImageView cartProductImageView;
       ElegantNumberButton elegantNumberButton;
+      TextView cartProductPriceTextview;
+
 
         public CartViewHolder(@NonNull View itemView)
         {
             super(itemView);
-            cartProductDetailsTextView = itemView.findViewById(R.id.cart_product_name);
+            cartProductNameTextView = itemView.findViewById(R.id.cart_product_name);
             cartProductImageView = itemView.findViewById(R.id.cart_product_image);
+            cartProductPriceTextview = itemView.findViewById(R.id.cart_product_price);
             elegantNumberButton = itemView.findViewById(R.id.elegant_button);
 
         }

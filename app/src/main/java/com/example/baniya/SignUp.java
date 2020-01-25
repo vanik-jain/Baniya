@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +22,7 @@ public class SignUp extends AppCompatActivity
   private   EditText passwordEditText;
   private   EditText cpassword;
   private   EditText nameEditText;
+  private LinearLayout progressBarLinearLayout;
 
 
 
@@ -34,13 +36,13 @@ public class SignUp extends AppCompatActivity
       passwordEditText = findViewById(R.id.password);
       nameEditText = findViewById(R.id.name);
       cpassword = findViewById(R.id.cpassword);
-
+      progressBarLinearLayout = findViewById(R.id.progressbar_layout);
 
     }
 
     public void SignUp(View view)
     {
-
+            progressBarLinearLayout.setVisibility(View.VISIBLE);
             Api api = App.getRetrofit().create(Api.class);
              SignUpRequestDTO signUpRequestDTO = new SignUpRequestDTO();
             signUpRequestDTO.setEmail(emailEditext.getText().toString());
@@ -58,8 +60,10 @@ public class SignUp extends AppCompatActivity
                    SignUpResponseDTO signUpResponseDTO = response.body();
                    if(signUpResponseDTO.isSuccess())
                    {
-                     Toast.makeText(SignUp.this, "Sign Up successful", Toast.LENGTH_SHORT).show();
-                     startActivity(new Intent(SignUp.this,LoginActivity.class));
+                       progressBarLinearLayout.setVisibility(View.GONE);
+                       Toast.makeText(SignUp.this, "Sign Up successful", Toast.LENGTH_SHORT).show();
+                       startActivity(new Intent(SignUp.this,LoginActivity.class));
+                       finish();
                    }
                  }
           }
@@ -67,6 +71,7 @@ public class SignUp extends AppCompatActivity
           @Override
           public void onFailure(Call<SignUpResponseDTO> call, Throwable t)
           {
+              progressBarLinearLayout.setVisibility(View.GONE);
             Toast.makeText(SignUp.this, t.getMessage(), Toast.LENGTH_SHORT).show();
           }
         });

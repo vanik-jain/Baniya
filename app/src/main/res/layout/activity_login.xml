@@ -1,199 +1,187 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     tools:context=".LoginActivity">
 
     <LinearLayout
-
-        android:orientation="horizontal"
-        android:padding="13dp"
-        android:layout_centerInParent="true"
+        android:id="@+id/progressbar_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:id="@+id/progressbar_layout"
+        android:layout_centerInParent="true"
         android:elevation="5dp"
-        >
+        android:orientation="horizontal"
+        android:background="@drawable/progress_bar_background"
+        android:padding="13dp"
+        android:visibility="gone">
 
         <ProgressBar
             android:id="@+id/loader"
-            android:layout_marginEnd="5dp"
             android:layout_width="45dp"
             android:layout_height="45dp"
-            android:theme="@style/AppTheme"
-            />
+            android:layout_marginEnd="5dp"
+           />
+
         <TextView
-            android:layout_width="wrap_content"
-            android:text="Checking Credentials..."
-            android:layout_gravity="center_vertical"
             android:id="@+id/loading_msg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:fontFamily="@font/avenirlight"
-            android:textSize="15.311sp"
-            android:layout_height="wrap_content" />
+            android:text="Checking Credentials..."
+            android:textSize="15.311sp" />
     </LinearLayout>
-
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:layout_centerInParent="true"
-    >
-<ImageView
-    android:layout_width="150dp"
-    android:layout_height="150dp"
-    android:layout_gravity="center"
-    android:src="@mipmap/logo"
-    />
-
-    <TextView
-        android:text="Welcome to Baniya!"
-        android:layout_marginBottom="10dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="22.88sp"
-        android:textColor="#525050"
-        android:lineSpacingExtra="6.867sp"
-        android:gravity="center_horizontal"
-        android:layout_marginTop="25.117dp"
-        android:layout_marginLeft="22.5dp"
-        android:layout_gravity="center"
-        android:fontFamily="@font/averin"
-        android:layout_marginRight="22.5dp"
-        />
-
-
-    <EditText
-
-        android:inputType="textEmailAddress"
-        android:hint="Username"
-        android:padding="15dp"
-        android:layout_margin="10dp"
-        android:id="@+id/username"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="18.311sp"
-        android:textColor="#0d0101"
-        android:lineSpacingExtra="6.867sp"
-        android:layout_marginTop="1.373dp"
-        android:fontFamily="@font/avenirlight"
-        android:layout_marginRight="22.5dp"
-        android:layout_marginLeft="22.5dp"
-
-        />
-
-    <EditText
-        android:inputType="textPassword"
-        android:hint="Password"
-        android:padding="15dp"
-        android:layout_margin="10dp"
-        android:id="@+id/password"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="18.311sp"
-        android:textColor="#0d0101"
-        android:lineSpacingExtra="6.867sp"
-        android:layout_marginTop="1.373dp"
-        android:fontFamily="@font/avenirlight"
-        android:layout_marginRight="22.5dp"
-        android:layout_marginLeft="22.5dp"
-
-        />
-
-
-    <TextView
-
-        android:text="You haven't an account yet?"
-        android:onClick="SignUp"
-        android:layout_marginBottom="10dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="18.311sp"
-        android:textColor="#525050"
-        android:lineSpacingExtra="6.867sp"
-        android:gravity="center"
-        android:layout_marginTop="25.117dp"
-        android:fontFamily="@font/averinroman"
-        android:layout_gravity="center"
-
-
-        />
-
-<!--    <TextView-->
-<!--        android:layout_gravity="center"-->
-<!--        android:text="Forgot your password?"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:textSize="15.311sp"-->
-<!--        android:textColor="#525050"-->
-<!--        android:lineSpacingExtra="6.867sp"-->
-<!--        android:layout_marginTop="5.117dp"-->
-<!--        android:layout_marginLeft="22.5dp"-->
-<!--        android:fontFamily="@font/averinroman"-->
-<!--        android:layout_marginRight="22.5dp"-->
-<!--        />-->
-<!--        android:onClick="resetPassword"-->
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:weightSum="1"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:orientation="horizontal"
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
 
-        >
-        <Button
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="0dp"
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center"
+            android:src="@mipmap/logo" />
+
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:drawableTop="@drawable/ic_icons8_google"
-            android:onClick="googleSignIn"
+            android:layout_gravity="center"
+            android:layout_marginLeft="22.5dp"
+            android:layout_marginTop="25.117dp"
+            android:layout_marginRight="22.5dp"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="@font/averin"
+            android:gravity="center_horizontal"
+            android:lineSpacingExtra="6.867sp"
+            android:text="Welcome to Baniya!"
+            android:textColor="#525050"
+            android:textSize="22.88sp" />
+
+
+        <EditText
+
+            android:id="@+id/username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_marginLeft="22.5dp"
+            android:layout_marginTop="1.373dp"
+            android:layout_marginRight="22.5dp"
+            android:fontFamily="@font/avenirlight"
+            android:hint="Username"
+            android:inputType="textEmailAddress"
+            android:lineSpacingExtra="6.867sp"
+            android:padding="15dp"
+            android:textColor="#0d0101"
+            android:textSize="18.311sp"
+
             />
-        <Button
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="0dp"
+
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:gravity="end"
-            android:drawableTop="@drawable/ic_icons8_facebook" />
+            android:layout_margin="10dp"
+            android:layout_marginLeft="22.5dp"
+            android:layout_marginTop="1.373dp"
+            android:layout_marginRight="22.5dp"
+            android:fontFamily="@font/avenirlight"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:lineSpacingExtra="6.867sp"
+            android:padding="15dp"
+            android:textColor="#0d0101"
+            android:textSize="18.311sp"
+
+            />
+
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="25.117dp"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="@font/averinroman"
+            android:gravity="center"
+            android:lineSpacingExtra="6.867sp"
+            android:onClick="SignUp"
+            android:text="You haven't an account yet?"
+            android:textColor="#525050"
+            android:textSize="18.311sp"
+
+
+            />
+
+        <!--    <TextView-->
+        <!--        android:layout_gravity="center"-->
+        <!--        android:text="Forgot your password?"-->
+        <!--        android:layout_width="wrap_content"-->
+        <!--        android:layout_height="wrap_content"-->
+        <!--        android:textSize="15.311sp"-->
+        <!--        android:textColor="#525050"-->
+        <!--        android:lineSpacingExtra="6.867sp"-->
+        <!--        android:layout_marginTop="5.117dp"-->
+        <!--        android:layout_marginLeft="22.5dp"-->
+        <!--        android:fontFamily="@font/averinroman"-->
+        <!--        android:layout_marginRight="22.5dp"-->
+        <!--        />-->
+        <!--        android:onClick="resetPassword"-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:orientation="horizontal"
+            android:weightSum="1"
+
+            >
+
+            <Button
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:drawableTop="@drawable/ic_icons8_google"
+                android:onClick="googleSignIn" />
+
+            <Button
+                android:id="@+id/fb_button"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:drawableTop="@drawable/ic_icons8_facebook"
+                android:gravity="end" />
+        </LinearLayout>
+
+
     </LinearLayout>
 
 
-
-</LinearLayout>
-
-
-
-
-
-
-
-
-
     <Button
-    android:onClick="login"
-    android:text="Log In"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/image_background"
-    android:backgroundTint="@color/colorPrimary"
-    android:textColor="#ffffff"
-    android:fontFamily="@font/avenirheavy"
-    android:textSize="18sp"
-    android:layout_marginLeft="20dp"
-    android:layout_marginRight="20dp"
-    android:layout_marginBottom="20dp"
-    android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/image_background"
+        android:backgroundTint="@color/colorPrimary"
+        android:fontFamily="@font/avenirheavy"
+        android:onClick="login"
+        android:text="Log In"
+        android:textColor="#ffffff"
+        android:textSize="18sp"
 
-    />
-
-
-
+        />
 
 
 </RelativeLayout>

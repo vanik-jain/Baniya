@@ -2,6 +2,9 @@ package com.example.baniya;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.facebook.CallbackManager;
+
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -32,6 +35,10 @@ public class ProductDescriptionActivity extends AppCompatActivity
     private Button addOneItemToCartButton;
     private TextView productRatingTextView;
     private SharedPreferences sharedPreferences;
+    private CallbackManager callbackManager;
+    private static final String EMAIL = "email";
+   // private LinearLayout progressBarLinearLayout;
+ //   private Button loginButton;
 
 
 
@@ -46,6 +53,8 @@ public class ProductDescriptionActivity extends AppCompatActivity
         productPrice = findViewById(R.id.product_price);
         productRatingTextView = findViewById(R.id.product_rating);
         addOneItemToCartButton = findViewById(R.id.add_one_item_to_cart_button);
+//        progressBarLinearLayout = findViewById(R.id.progressbar_layout);
+//        progressBarLinearLayout.setVisibility(View.VISIBLE);
         addOneItemToCartButton.setText("ADD TO CART");
         api = App.getRetrofit().create(Api.class);
         gIntent = getIntent();
@@ -62,6 +71,7 @@ public class ProductDescriptionActivity extends AppCompatActivity
 
                 if (product != null)
                 {
+//                    progressBarLinearLayout.setVisibility(View.GONE);
                     Log.i("VANIK",product.toString());
                     productName.setText(product.getProductName());
                     productUsp.setText(product.getProductDescription());
@@ -74,6 +84,7 @@ public class ProductDescriptionActivity extends AppCompatActivity
 
                 else
                 {
+//                    progressBarLinearLayout.setVisibility(View.GONE);
                     Toast.makeText(ProductDescriptionActivity.this,"Product not Available",Toast.LENGTH_SHORT).show();
                 }
 
@@ -85,6 +96,15 @@ public class ProductDescriptionActivity extends AppCompatActivity
                 Toast.makeText(ProductDescriptionActivity.this,t.getMessage(),Toast.LENGTH_SHORT).show();
             }
         });
+
+
+//        callbackManager= CallbackManager.Factory.create();
+//        loginButton =  findViewById(R.id.login_button);
+//        loginButton.setReadPermissions(Arrays.asList(EMAIL));
+
+
+
+
     }
 
     public void addToCart(View view)
@@ -102,8 +122,10 @@ public class ProductDescriptionActivity extends AppCompatActivity
               {
                   if (product.getStock() >= 1 )
 
-                  {addOneItemToCart();
-                  addOneItemToCartButton.setText("VIEW CART");}
+                  {
+                      addOneItemToCart();
+
+                  }
                   else
                   {
                       Toast.makeText(getBaseContext(),"Item out of stock",Toast.LENGTH_SHORT).show();
@@ -118,45 +140,46 @@ public class ProductDescriptionActivity extends AppCompatActivity
 
     public void displayMerchantList(View view)
     {
-        startActivity(new Intent(ProductDescriptionActivity.this,MerchantsActivity.class));
+        Intent intent = new Intent(ProductDescriptionActivity.this,MerchantsActivity.class);
+        intent.putExtra("productId",product.getProductId());
+        startActivity(intent);
     }
 
 
-    public void addOneItemToCart()
-    {
-        final String userId = "5" ;
+    public void addOneItemToCart() {
+
         Api api = App.getRetrofit().create(Api.class);
         AddCartDTO addCartDTO = new AddCartDTO();
         addCartDTO.setMerchantId(product.getMerchantId());
         addCartDTO.setProductId(product.getProductId());
-      //  addCartDTO.setUserId(userId);
-        sharedPreferences = getSharedPreferences("user_details",MODE_PRIVATE);
-        String authToken = sharedPreferences.getString("auth_token",null);
-        Call<String> call =api.addToCart(addCartDTO,authToken);
-        call.enqueue(new Callback<String>()
-        {
-            @Override
-            public void onResponse(Call<String> call, Response<String> response)
-            {
+        //  addCartDTO.setUserId(userId);
+        sharedPreferences = getSharedPreferences("user_details", MODE_PRIVATE);
+        String authToken = sharedPreferences.getString("auth_token", null);
+        Call<CartResponseDTO> call = api.addToCart(addCartDTO, authToken);
 
-                if(response.body() != null)
-                {
-                    Toast.makeText(getBaseContext(),"Item added to cart",Toast.LENGTH_SHORT).show();
-                }
-                else
-                {
-                    Toast.makeText(getBaseContext(),"Item cannot be added",Toast.LENGTH_SHORT).show();
+        call.enqueue(new Callback<CartResponseDTO>() {
+            @Override
+            public void onResponse(Call<CartResponseDTO> call, Response<CartResponseDTO> response)
+            {
+                if (response.body() != null) {
+                    CartResponseDTO cartResponseDTO = response.body();
+                    if (cartResponseDTO.getSuccess()) {
+                        Toast.makeText(getBaseContext(), "Item added to cart", Toast.LENGTH_SHORT).show();
+                        addOneItemToCartButton.setText("VIEW CART");
+                    }
                 }
             }
 
-
             @Override
-            public void onFailure(Call<String> call, Throwable t)
+            public void onFailure(Call<CartResponseDTO> call, Throwable t)
             {
+
                 Toast.makeText(getBaseContext(),t.getMessage(),Toast.LENGTH_SHORT).show();
 
-            }
+             }
         });
+
+
     }
 
 
