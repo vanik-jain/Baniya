@@ -1,4 +1,4 @@
- package com.example.baniya;
+package com.example.baniya;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,23 +20,20 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
- public class CartActivity extends AppCompatActivity implements ICartCommunicator
-{
+public class CartActivity extends AppCompatActivity implements ICartCommunicator {
 
 //    private  Intent gIntent;
 
     private RecyclerView rvCartProducts;
-    private ViewCartDTO cartProduct;
     private CartAdapter cartAdapter;
     private SharedPreferences sharedPreferences;
-    private  String authToken;
+    private String authToken;
     private List<ProductDTOItem> cartList = new ArrayList<>();
     private TextView totalTextView;
-
+    private String guestId;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-     {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
 //        gIntent = getIntent();
@@ -44,44 +42,55 @@ import retrofit2.Response;
 //        String merchantId = gIntent.getStringExtra("merchantId");
 //
 //        String userId = gIntent.getStringExtra("userId");
-         totalTextView = findViewById(R.id.total_text_view);
-         sharedPreferences = getSharedPreferences("user_details",MODE_PRIVATE);
-         rvCartProducts = findViewById(R.id.cart_recycler_view);
-         cartAdapter = new CartAdapter(cartList,CartActivity.this);
-         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(CartActivity.this);
-         rvCartProducts.setLayoutManager(layoutManager);
-         rvCartProducts.setItemAnimator(new DefaultItemAnimator());
-         rvCartProducts.setAdapter(cartAdapter);
-         Api api = App.getRetrofit().create(Api.class);
-         authToken  =sharedPreferences.getString("auth_token",null);
-         Call<ViewCartDTO>call = api.viewCart(authToken);
-           call.enqueue(new Callback<ViewCartDTO>() {
-               @Override
-               public void onResponse(Call<ViewCartDTO> call, Response<ViewCartDTO> response) {
-                   if (response.body() != null)
-                   {
-                       ViewCartDTO viewCartDTO = response.body();
+        totalTextView = findViewById(R.id.total_text_view);
+        sharedPreferences = getSharedPreferences("user_details", MODE_PRIVATE);
+        rvCartProducts = findViewById(R.id.cart_recycler_view);
+        cartAdapter = new CartAdapter(cartList, CartActivity.this);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(CartActivity.this);
+        rvCartProducts.setLayoutManager(layoutManager);
+        rvCartProducts.setItemAnimator(new DefaultItemAnimator());
+        rvCartProducts.setAdapter(cartAdapter);
+        Api api = App.getRetrofit().create(Api.class);
+        authToken = sharedPreferences.getString("auth_token", null);
+        guestId = sharedPreferences.getString("guest_cart_id", null);
+        Call<ViewCartDTO> call;
+        if (authToken == null)
+        {
+            call = api.viewCart(null, guestId,"false");
+        } else
+            {
+            call = api.viewCart(authToken, guestId,"false");
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("guest_cart_id",null);
+                editor.apply();
 
-                       cartList.clear();
-                       cartList.addAll(viewCartDTO .getProductDTO());
-                       if(cartList.size() == 0)
-                       {
-                           Toast.makeText(getApplicationContext(),"No Items in Cart",Toast.LENGTH_SHORT).show();
-                       }
-                       cartAdapter.notifyDataSetChanged();
-                       totalTextView.setText("Total: ₹"+viewCartDTO.getTotal() );
-                   }
-               }
-
-               @Override
-               public void onFailure(Call<ViewCartDTO> call, Throwable t)
-               {
-                   Toast.makeText(getApplicationContext(),"Cart cannot be loaded",Toast.LENGTH_SHORT).show();
-               }
-           });
+        }
 
 
+        call.enqueue(new Callback<ViewCartDTO>() {
+            @Override
+            public void onResponse(Call<ViewCartDTO> call, Response<ViewCartDTO> response) {
+                if (response.body() != null)
+                {
+                    ViewCartDTO viewCartDTO = response.body();
 
+                    cartList.clear();
+                    cartList.addAll(viewCartDTO.getProductDTO());
+                    if (cartList.size() == 0)
+                    {
+                        Toast.makeText(getApplicationContext(), "No Items in Cart", Toast.LENGTH_SHORT).show();
+                    }
+                    cartAdapter.notifyDataSetChanged();
+                    totalTextView.setText("Total: ₹" + viewCartDTO.getTotal());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ViewCartDTO> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.i("VANIK1",t.getMessage());
+            }
+        });
 
 
 //       AddCartDTO addCartDTO = new AddCartDTO();
@@ -102,43 +111,43 @@ import retrofit2.Response;
 //
 //                  }
 //              });
-
-
-
-
-
-
-
     }
 
     @Override
-    public void updateCartOnClick(String productId, String merchantId, int counter)
-    {
+    public void updateCartOnClick(String productId, String merchantId, int counter) {
         Api api = App.getRetrofit().create(Api.class);
         UpdateCartDTO updateCartDTO = new UpdateCartDTO();
         updateCartDTO.setMerchantId(merchantId);
         updateCartDTO.setCounter(counter);
         updateCartDTO.setProductId(productId);
+        Call<CartResponseDTO> call;
+        if (authToken == null)
+        {
 
-        Call<CartResponseDTO>call = api.updateCart(updateCartDTO,authToken);
+            call = api.updateCart(updateCartDTO, null, guestId,"false");
+        }
+        else
+            {
+                call = api.updateCart(updateCartDTO, authToken, guestId,"false");
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("guest_cart_id",null);
+                editor.apply();
+        }
+
         call.enqueue(new Callback<CartResponseDTO>() {
             @Override
-            public void onResponse(Call<CartResponseDTO> call, Response<CartResponseDTO> response)
-            {
-                if (response.body()!=null)
-                {
+            public void onResponse(Call<CartResponseDTO> call, Response<CartResponseDTO> response) {
+                if (response.body() != null) {
                     CartResponseDTO cartResponseDTO = response.body();
-                    if (cartResponseDTO.getSuccess())
-                    {
+                    if (cartResponseDTO.getSuccess()) {
                         Toast.makeText(CartActivity.this, "Cart Updated", Toast.LENGTH_SHORT).show();
-                        totalTextView.setText("Total: ₹"+cartResponseDTO.getTotal());
+                        totalTextView.setText("Total: ₹" + cartResponseDTO.getTotal());
                     }
                 }
             }
 
             @Override
-            public void onFailure(Call<CartResponseDTO> call, Throwable t)
-            {
+            public void onFailure(Call<CartResponseDTO> call, Throwable t) {
                 Toast.makeText(CartActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
@@ -146,47 +155,50 @@ import retrofit2.Response;
 
     }
 
-    public void checkOut(View view)
-    {
-       Api api = App.getRetrofit().create(Api.class);
-
-       Call<CartResponseDTO> call = api.checkout(authToken);
-       call.enqueue(new Callback<CartResponseDTO>() {
-           @Override
-           public void onResponse(Call<CartResponseDTO> call, Response<CartResponseDTO> response)
-           {
-
-               if (response.body() != null)
-               {
-                   CartResponseDTO cartResponseDTO = response.body();
-                   if (cartResponseDTO.getSuccess())
-                   {
-                       Toast.makeText(getApplicationContext(), "Order Placed!", Toast.LENGTH_SHORT).show();
-                       startActivity(new Intent(CartActivity.this, LandingActivity.class));
-                       finish();
-                   }
-                   else
-                   {
-                       Toast.makeText(getApplicationContext(), cartResponseDTO.getErrorMessage(), Toast.LENGTH_SHORT).show();
-                       finish();
-                       startActivity(getIntent());
-                   }
+    public void checkOut(View view) {
 
 
-               }
+        if (authToken == null)
+        {
+            Toast.makeText(getApplicationContext(), "Please login before checkout", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(CartActivity.this, LoginActivity.class));
+        }
+        else {
+            Api api = App.getRetrofit().create(Api.class);
+            Call<CartResponseDTO> call = api.checkout(authToken,guestId,"false");
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("guest_cart_id",null);
+            editor.apply();
+            call.enqueue(new Callback<CartResponseDTO>()
+            {
+                @Override
+                public void onResponse(Call<CartResponseDTO> call, Response<CartResponseDTO> response) {
 
-           }
+                    if (response.body() != null) {
+                        CartResponseDTO cartResponseDTO = response.body();
+                        if (cartResponseDTO.getSuccess()) {
+                            Toast.makeText(getApplicationContext(), "Order Placed!", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(CartActivity.this, LandingActivity.class));
+                            finish();
+                        } else {
+                            Toast.makeText(getApplicationContext(), cartResponseDTO.getErrorMessage(), Toast.LENGTH_SHORT).show();
+                            finish();
+                            startActivity(getIntent());
+                        }
 
-           @Override
-           public void onFailure(Call<CartResponseDTO> call, Throwable t)
-           {
-               Toast.makeText(CartActivity.this,t.getMessage(),Toast.LENGTH_SHORT).show();
 
-           }
-       });
+                    }
 
+                }
+
+                @Override
+                public void onFailure(Call<CartResponseDTO> call, Throwable t) {
+                    Toast.makeText(CartActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+
+                }
+            });
+        }
     }
-
 
 
 }
